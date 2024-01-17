@@ -22,11 +22,21 @@
                         <canvas id="canvas" width="400" height="400" style="max-width: 100%; border: 2px solid black;"></canvas>
                         <canvas id="otrocanvas" width="150" height="150" style="display: none;"></canvas>
                         <div id="resultadoPrediccion" style="font-weight: bold; margin-top: 10px;"></div>
-                        <div id="botonesContainer" style="display: flex; justify-content: center; align-items: center0; flex-wrap: wrap; gap: 10px; padding: 10px;">
-                            <button id="startButton" onclick="startCounting()">Iniciar Conteo</button>
-                            <button id="stopButton" onclick="stopCounting()" style="display: none;">Detener Conteo</button>
-                            <button id="pauseButton" onclick="pauseCounting()" style="display: none;">Pausar Conteo</button>
-                            <button id="resetButton" onclick="resetCounters()">Reiniciar Contador</button>
+                        <div id="botonesContainer">
+                            <button id="automaticoButton" onclick="activarModoAutomatico()">Conteo Automático</button>
+                            <button id="manualButton" onclick="activarModoManual()">Conteo Manual</button>
+                            <div id="botonesConteoAutomatico" style="display: none;">
+                                <button id="startButton" onclick="startCounting()">Iniciar Conteo</button>
+                                <button id="pauseButton" onclick="pauseCounting()" style="display: none;">Pausar Conteo</button>
+                                <button id="stopButton" onclick="stopCounting()" style="display: none;">Detener Conteo</button>
+                                <button id="resetButton" onclick="resetCounters()">Reiniciar Contador</button>
+                                <button onclick="regresar()">Regresar</button>
+                            </div>
+                            <div id="botonesConteoManual" style="display: none;">
+                                <button id="capturaManualButton" onclick="predict_manual()">Captura Manual</button>
+                                <button id="resetButtonManual" onclick="resetCounters()">Reiniciar Contador</button>
+                                <button onclick="regresar()">Regresar</button>
+                            </div>
                         </div>
                     </div>
                 </div>

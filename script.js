@@ -196,6 +196,68 @@ function predecir() {
         }
     }
 }
+function predict_manual() {
+    if (modelo == null) {
+        alert("El modelo aún no está cargado");
+        return;
+    }
+
+    // Asegurarse de que no hay un proceso de conteo en curso
+    if (countingInterval != null) {
+        alert("El conteo automático está en progreso. Deténgalo antes de usar el modo manual.");
+        return;
+    }
+
+    // Captura la imagen actual de la cámara
+    ctx.drawImage(video, 0, 0, tamano, tamano);
+
+    // Procesa la imagen capturada y realiza la predicción
+    procesarYPredecir();
+}
+
+function procesarYPredecir() {
+    resample_single(canvas, 150, 150, otrocanvas);
+
+    var ctx2 = otrocanvas.getContext("2d");
+    var imgData = ctx2.getImageData(0, 0, 150, 150);
+    var arr = [];
+    var arr150 = [];
+
+    for (var p = 0; p < imgData.data.length; p += 4) {
+        var rojo = imgData.data[p] / 255;
+        var verde = imgData.data[p + 1] / 255;
+        var azul = imgData.data[p + 2] / 255;
+
+        arr150.push([rojo, verde, azul]);
+        if (arr150.length == 150) {
+            arr.push(arr150);
+            arr150 = [];
+        }
+    }
+    arr = [arr];
+    var tensor = tf.tensor4d(arr); 
+
+    try {
+        var resultado = modelo.predict(tensor).dataSync();
+
+        var clases = [
+            'Basofilos', 'Eosinofilos', 'Eritroblastos',
+            'Linfoblastos', 'Linfocitos', 'Mieloblastos',
+            'Monocitos', 'Neutrofilos', 'Plaquetas'
+        ];
+        var maxProb = Math.max(...resultado);
+        var claseIndex = resultado.indexOf(maxProb);
+        var clase = clases[claseIndex];
+
+        // Actualizar la interfaz de usuario con el resultado
+        updateCounters(clase);
+        document.getElementById("resultadoPrediccion").innerHTML = clase;
+    } catch (error) {
+        console.error("Error en la predicción:", error);
+    }
+}
+
+
 function resample_single(canvas, width, height, resize_canvas) {
     var width_source = canvas.width;
     var height_source = canvas.height;
@@ -264,6 +326,30 @@ function resample_single(canvas, width, height, resize_canvas) {
 
 
     ctx2.putImageData(img2, 0, 0);
+}
+// 5. Funciones de Botones
+function activarModoAutomatico() {
+    document.getElementById("automaticoButton").style.display = "none";
+    document.getElementById("manualButton").style.display = "none";
+    document.getElementById("botonesConteoAutomatico").style.display = "block";
+}
+
+function activarModoManual() {
+    document.getElementById("automaticoButton").style.display = "none";
+    document.getElementById("manualButton").style.display = "none";
+    document.getElementById("botonesConteoManual").style.display = "block";
+}
+
+function regresar() {
+    document.getElementById("automaticoButton").style.display = "inline";
+    document.getElementById("manualButton").style.display = "inline";
+    document.getElementById("botonesConteoAutomatico").style.display = "none";
+    document.getElementById("botonesConteoManual").style.display = "none";
+
+    // Si el conteo automático está en curso, detenerlo
+    if (countingInterval != null) {
+        stopCounting();
+    }
 }
 
 // 5. Inicialización
