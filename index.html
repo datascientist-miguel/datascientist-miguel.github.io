@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clasificador de Células Sanguíneas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <main>
+        <div class="text-center header-section py-4" style="background-color: #343a40; color: #faf9f9;">
+            <h1 class="display-4">Clasificador de Células Sanguíneas</h1>
+            <p class="lead">Clasificación de imágenes de células sanguíneas utilizando un modelo de Red Convolucional (CNN) entrenado por mi, utilizando la cámara web</p>
+        </div>
+            <div class="container mt-5 content-section" style="background-color: #ffffff;">
+            <div class="row">
+                <div class="col-12 col-md-6 text-center">
+                    <video id="video" playsinline autoplay style="width: 1px;"></video>
+                    <button class="btn btn-primary mb-2" id="cambiar-camara" onclick="cambiarCamara();" style="margin-top: 10px;">Cambiar cámara</button>
+                    <div id="canvasContainer" style="position: relative;">
+                        <canvas id="canvas" width="400" height="400" style="max-width: 100%; border: 2px solid black;"></canvas>
+                        <canvas id="otrocanvas" width="150" height="150" style="display: none;"></canvas>
+                        <div id="resultadoPrediccion" style="font-weight: bold; margin-top: 10px;"></div>
+                        <div id="botonesContainer" style="display: flex; justify-content: center; align-items: center0; flex-wrap: wrap; gap: 10px; padding: 10px;">
+                            <button id="startButton" onclick="startCounting()">Iniciar Conteo</button>
+                            <button id="stopButton" onclick="stopCounting()" style="display: none;">Detener Conteo</button>
+                            <button id="pauseButton" onclick="pauseCounting()" style="display: none;">Pausar Conteo</button>
+                            <button id="resetButton" onclick="resetCounters()">Reiniciar Contador</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div id="contadorCelulas" style="text-align: center; margin-top: 20px;">
+                        <h2>Contador por Tipo de Célula</h2>
+                        <ul id="listaContadores" style="list-style: none; padding: 0;"></ul>
+                    </div>
+                    <div id="tablaContadores" class="mt-4">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Tipo de Célula</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody id="filasContadores">
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Total General</th>
+                                    <td id="totalGeneral">0</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-dark text-white text-center mt-5 py-4">
+        <div class="container">
+            <h3>Contacto</h3>
+            <p>Puedes encontrarme en las siguientes redes sociales:</p>
+            <a href="mailto:m.angel9106@gmail@gmail.com" class="btn btn-outline-light mx-2"><i class="fas fa-envelope"></i> Gmail</a>
+            <a href="https://www.linkedin.com/in/miguel-angel-carvajal-carvajal/" class="btn btn-outline-light mx-2"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="https://github.com/datascientist-miguel" class="btn btn-outline-light mx-2"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+    </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+<script src="./script.js"></script>
+</body>
+</html>

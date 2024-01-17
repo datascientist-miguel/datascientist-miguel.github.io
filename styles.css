@@ -1,0 +1,53 @@
+body {
+    background-color: #d7d3d3;
+}
+
+.header-section {
+    background-color: #343a40;
+    color: #faf9f9;
+}
+
+#canvasContainer {
+    position: relative;
+}
+
+#canvas {
+    max-width: 100%;
+    border: 2px solid black;
+}
+
+#otrocanvas {
+    display: none;
+}
+
+#resultadoPrediccion {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#botonesContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+}
+
+#contadorCelulas {
+    text-align: center;
+    margin-top: 20px;
+}
+
+ul#listaContadores {
+    list-style: none;
+    padding: 0;
+}
+
+footer {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    margin-top: 5rem;
+    padding: 1rem 0;
+}
